@@ -1,7 +1,7 @@
 
 from pprint import pprint
 
-class ride:
+class Ride:
     def __init__(self, a, b, x, y, s, f, index):
         self.a = a
         self.b = b
@@ -20,7 +20,7 @@ class ride:
             str(self.f) + ' ' + 
             str(self.index))
 
-class vehicle:
+class Vehicle:
     def __init__(self, x=0, y=0, end_time=0):
         self.x = x
         self.y = y
@@ -79,12 +79,12 @@ def search_available_vehicle(ride, car_list):
     currently, assign the first find
     '''
     for car_index, car in enumerate(car_list):
-        if max(distance(ride.a, ride.b, car.x, car.y) + car.end_time, ride.s) + distance(ride.a, ride.x, ride.b, ride.y) <= ride.f:  
+        if max(distance(ride.a, ride.b, car.x, car.y) + car.end_time, ride.s) + distance(ride.a, ride.b, ride.x, ride.y) <= ride.f:  
             return car_index
     return None
 
-def output(result):
-    with open('output','w') as f:
+def output(result, name):
+    with open(name,'w') as f:
         for i,res in enumerate(result):
             s = str(len(res)) + ' '
             for ride in res:
@@ -96,33 +96,36 @@ def print_list(l):
     for i in l:
         print(i)
 
-# R, C, F, N, B, T, rides = read_data('a_example.in')
-# R, C, F, N, B, T, rides = read_data('b_should_be_easy.in')
-R, C, F, N, B, T, rides = read_data('c_no_hurry.in')
-# R, C, F, N, B, T, rides = read_data('d_metropolis.in')
-# R, C, F, N, B, T, rides = read_data('e_high_bonus.in')
+def process_file(file_name):
 
+    R, C, F, N, B, T, rides = read_data(file_name)
 
-rides_list = [ride(*r) for r in rides]
-car_list = [vehicle() for i in range(F)]
-result = [[] for i in range(F)]
+    rides_list = [Ride(*r) for r in rides]
+    car_list = [Vehicle() for i in range(F)]
+    result = [[] for i in range(F)]
 
-rides_list = init_ride_list(rides_list)
+    rides_list = init_ride_list(rides_list)
 
-print_list(rides_list)
+    print_list(rides_list)
 
-for ride in rides_list:
-    i = search_available_vehicle(ride, car_list)
-    if i is not None:
-        car = car_list[i]
-        result[i].append(ride.index)
-        car_list[i].end_time += distance(ride.a, ride.x, ride.b, ride.y) + distance(ride.a, ride.b, car.x, car.y)
-        car_list[i].x = ride.x
-        car_list[i].y = ride.y
+    for ride in rides_list:
+        i = search_available_vehicle(ride, car_list)
+        if i is not None:
+            car = car_list[i]
+            result[i].append(ride.index)
+            car_list[i].end_time += distance(ride.a, ride.b, ride.x, ride.y) + distance(ride.a, ride.b, car.x, car.y)
+            car_list[i].x = ride.x
+            car_list[i].y = ride.y
 
-print(result)
+    print(result)
 
-output(result)
+    output(result, file_name[:-2] + 'out')
+
+process_file('a_example.in')
+process_file('b_should_be_easy.in')
+process_file('c_no_hurry.in')
+process_file('d_metropolis.in')
+process_file('e_high_bonus.in')
 
 
 
