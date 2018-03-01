@@ -18,13 +18,15 @@ def read_data(file_name):
 
     return R, C, F, N, B, T, rides
 
-def init_ride_list(raw_data):
+def init_ride_list():
     '''
     :param raw_data:
     :return:
     sort w.r.t. start timestamp
     //potential: sort w.r.t. dist+bonus, dist from available car
     '''
+    
+
     return ride_list
 
 def update_vehicle_list():
