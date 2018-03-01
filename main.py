@@ -36,17 +36,21 @@ def read_data(file_name):
 
     return R, C, F, N, B, T, rides
 
-def init_ride_list(raw_data):
+
+def init_ride_list(rides_list):
     '''
     :param raw_data:
     :return:
     sort w.r.t. start timestamp
     //potential: sort w.r.t. dist+bonus, dist from available car
     '''
-    return ride_list
+    rides.sort(key=lambda x: x.s)
+    return rides_list
 
-def update_vehicle_list():
-    pass
+
+def update_vehicle_list(vehicles_list, new_vehicle):
+    vehicles_list.append(vehicle)
+    return vehicles_list
 
 def distance(x1, y1, x2, y2):
     return abs(x1 - x2) + abs(y1 - y2)
