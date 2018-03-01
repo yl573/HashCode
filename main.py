@@ -1,5 +1,6 @@
 
 from pprint import pprint
+import numpy as np
 
 class Ride:
     def __init__(self, a, b, x, y, s, f, index):
@@ -70,6 +71,17 @@ def update_vehicle_list(vehicles_list, new_vehicle):
 def distance(x1, y1, x2, y2):
     return abs(x1 - x2) + abs(y1 - y2)
 
+def __search_available_vehicle_best_so_far(ride, car_list):
+    best_car = (None, np.inf)
+    for car_index, car in enumerate(car_list):
+        arrival_time = distance(ride.a, ride.b, car.x, car.y) + car.end_time
+        if max(arrival_time, ride.s) + distance(ride.a, ride.b, ride.x, ride.y) <= ride.f:  
+            vehicle_wait_time = arrival_time - ride.s
+            vehicle_score = vehicle_wait_time if vehicle_wait_time > 0 else 0.5*vehicle_wait_time
+            if vehicle_score < best_car[1]:
+                best_car = (car_index, vehicle_score)
+    return best_car[0]
+
 def search_available_vehicle(ride, car_list):
     '''
     :param ride_list:
@@ -78,10 +90,7 @@ def search_available_vehicle(ride, car_list):
     rule: (vehicle endtime - ride starttime) <= ride starttime - vehicle endtime
     currently, assign the first find
     '''
-    for car_index, car in enumerate(car_list):
-        if max(distance(ride.a, ride.b, car.x, car.y) + car.end_time, ride.s) + distance(ride.a, ride.b, ride.x, ride.y) <= ride.f:  
-            return car_index
-    return None
+    return __search_available_vehicle_best_so_far(ride, car_list)
 
 def output(result, name):
     with open(name,'w') as f:
