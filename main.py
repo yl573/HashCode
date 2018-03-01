@@ -82,6 +82,28 @@ def __search_available_vehicle_best_so_far(ride, car_list):
                 best_car = (car_index, vehicle_score)
     return best_car[0]
 
+def search_available_vehicle_ver2(ride, car_list):
+    availables = []
+    for car_index, car in enumerate(car_list):
+        if max(distance(ride.a, ride.b, car.x, car.y) + car.end_time, ride.s) + distance(ride.a, ride.b, ride.x, ride.y) <= ride.f:  
+            availables.append(car_index)
+
+    if len(availables) == 0:
+        return None
+
+    ret = availables[0]
+    retVal = abs(distance(ride.a, ride.b, car.x, car.y) + car.end_time - ride.s)
+    for vI in availables:
+        if vI == ret:
+            continue
+        cI = car_list[vI]
+        vTime = abs(distance(ride.a, ride.b, cI.x, cI.y) + cI.end_time - ride.s)
+        if retVal > vTime:
+            retVal = vTime
+            ret = vI
+    return ret
+
+
 def search_available_vehicle(ride, car_list):
     '''
     :param ride_list:
