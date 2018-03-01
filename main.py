@@ -1,15 +1,17 @@
 
 class ride:
-    def __init__(self, x, y, start, finish)
+    def __init__(self, a, b, x, y, s, f)
+        self.a = a
+        self.b = b
         self.x = x
         self.y = y
-        self.start = start
-        self.finish = finish
+        self.s = s
+        self.f = f
 
 class vehicle:
-    def __init__(self, x, y, next_time):
-        self.x = x
-        self.y = y
+    def __init__(self, endx, endy, next_time):
+        self.endx = endx
+        self.endy = endy
         self.next_time = next_time
 
 
@@ -54,6 +56,9 @@ def search_available_vehicle(ride_list, car_list):
     rule: (vehicle endtime - ride starttime) <= ride starttime - vehicle endtime
     currently, assign the first find
     '''
+    for ride in ride_list:
+        for car in car_list:
+            if abs(car.endx - ride.x) + abs(car.y - ride.y) + car.end_time = ride.start_time
 
     return selected_car
 
