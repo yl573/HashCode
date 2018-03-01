@@ -18,6 +18,28 @@ def read_data(file_name):
 
     return R, C, F, N, B, T, rides
 
+def init_ride_list(raw_data):
+    '''
+    :param raw_data:
+    :return:
+    sort w.r.t. start timestamp
+    //potential: sort w.r.t. dist+bonus, dist from available car
+    '''
+    return ride_list
+
+def update_vehicle_list():
+
+
+def search_available_vehicle(ride_list, car_list, ):
+    '''
+    :param ride_list:
+    :param car_list:
+    :return:
+    rule: (vehicle endtime - ride starttime) <= ride starttime - vehicle endtime
+    currently, assign the first find
+    '''
+    return selected_car
+
 R, C, F, N, B, T, rides = read_data('a_example.in')
 
 
