@@ -1,12 +1,13 @@
 
 class ride:
-    def __init__(self, a, b, x, y, s, f)
+    def __init__(self, a, b, x, y, s, f, index)
         self.a = a
         self.b = b
         self.x = x
         self.y = y
         self.s = s
         self.f = f
+        self.index = index
 
 class vehicle:
     def __init__(self, endx, endy, end_time):
@@ -47,8 +48,10 @@ def init_ride_list(raw_data):
 def update_vehicle_list():
     pass
 
+def distance(x1, y1, x2, y2):
+    return abs(x1 - x2) + abs(y1 - y2)
 
-def search_available_vehicle(ride_list, car_list):
+def search_available_vehicle(ride_list, car_list, result):
     '''
     :param ride_list:
     :param car_list:
@@ -56,9 +59,14 @@ def search_available_vehicle(ride_list, car_list):
     rule: (vehicle endtime - ride starttime) <= ride starttime - vehicle endtime
     currently, assign the first find
     '''
+
     for ride in ride_list:
-        for car in car_list:
-            if abs(car.endx - ride.x) + abs(car.y - ride.y) + car.end_time = ride.start_time
+        for i, car in enumerate(car_list):
+            if distance(ride.x, ride.y, car.a, car.b) + car.end_time = ride.s:
+                result[i].append(ride.index)
+                
+                break
+
 
     return selected_car
 
