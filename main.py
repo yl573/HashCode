@@ -9,10 +9,10 @@ class ride:
         self.f = f
 
 class vehicle:
-    def __init__(self, endx, endy, next_time):
+    def __init__(self, endx, endy, end_time):
         self.endx = endx
         self.endy = endy
-        self.next_time = next_time
+        self.end_time = end_time
 
 
 def split_line(s):
